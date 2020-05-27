@@ -291,5 +291,5 @@ RUN cd /var/www/html && \
 
 EXPOSE 443 80
 
-WORKDIR "/var/www/html/public"
+WORKDIR "/var/www/html"
 CMD ["/start.sh"]
