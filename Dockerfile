@@ -255,9 +255,9 @@ RUN echo "cgi.fix_pathinfo=0" > ${php_vars} &&\
     sed -i \
         -e "s/;catch_workers_output\s*=\s*yes/catch_workers_output = yes/g" \
         -e "s/pm = dynamic/pm = ondemand/g" \
-        -e "s/pm.max_children = 5/pm.max_children = 100/g" \
+        -e "s/pm.max_children = 5/pm.max_children = 200/g" \
         -e "s/;pm.process_idle_timeout = 10s;/pm.process_idle_timeout = 10s/g" \
-        -e "s/;pm.max_requests = 500/pm.max_requests = 200/g" \
+        -e "s/;pm.max_requests = 500/pm.max_requests = 1000/g" \
         -e "s/user = www-data/user = nginx/g" \
         -e "s/group = www-data/group = nginx/g" \
         -e "s/;listen.mode = 0660/listen.mode = 0666/g" \
