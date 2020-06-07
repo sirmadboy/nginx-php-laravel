@@ -13,6 +13,8 @@ ENV GEOIP2_MODULE_VERSION 3.2
 ENV LUAJIT_LIB=/usr/lib
 ENV LUAJIT_INC=/usr/include/luajit-2.1
 
+ENV TZ Asia/Jakarta
+
 # resolves #166
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
 RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community gnu-libiconv
@@ -198,7 +200,8 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
     freetype-dev \
     sqlite-dev \
     libjpeg-turbo-dev \
-    postgresql-dev && \
+    postgresql-dev \
+    tzdata && \
     docker-php-ext-configure gd \
       --with-freetype \
       --with-jpeg && \
