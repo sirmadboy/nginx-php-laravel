@@ -254,13 +254,12 @@ RUN echo "cgi.fix_pathinfo=0" > ${php_vars} &&\
     echo "upload_max_filesize = 100M"  >> ${php_vars} &&\
     echo "post_max_size = 100M"  >> ${php_vars} &&\
     echo "variables_order = \"EGPCS\""  >> ${php_vars} && \
-    echo "memory_limit = 1024M"  >> ${php_vars} && \
+    echo "memory_limit = 128M"  >> ${php_vars} && \
     sed -i \
         -e "s/;catch_workers_output\s*=\s*yes/catch_workers_output = yes/g" \
+        -e "s/pm = dynamic/pm = ondemand/g" \
         -e "s/pm.max_children = 5/pm.max_children = 100/g" \
-        -e "s/pm.start_servers = 2/pm.start_servers = 10/g" \
-        -e "s/pm.min_spare_servers = 1/pm.min_spare_servers = 10/g" \
-        -e "s/pm.max_spare_servers = 3/pm.max_spare_servers = 10/g" \
+        -e "s/;pm.process_idle_timeout = 10s;/pm.process_idle_timeout = 10s/g" \
         -e "s/;pm.max_requests = 500/pm.max_requests = 200/g" \
         -e "s/user = www-data/user = nginx/g" \
         -e "s/group = www-data/group = nginx/g" \
@@ -270,7 +269,6 @@ RUN echo "cgi.fix_pathinfo=0" > ${php_vars} &&\
         -e "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php-fpm.sock/g" \
         -e "s/^;clear_env = no$/clear_env = no/" \
         ${fpm_conf}
-
 #    ln -s /etc/php7/php.ini /etc/php7/conf.d/php.ini && \
 #    find /etc/php7/conf.d/ -name "*.ini" -exec sed -i -re 's/^(\s*)#(.*)/\1;\2/g' {} \;
 
